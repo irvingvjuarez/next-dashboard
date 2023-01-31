@@ -99,6 +99,10 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+#__next {
+  overflow-y: hidden;
+}
+
 a {
   color: inherit;
   text-decoration: none;

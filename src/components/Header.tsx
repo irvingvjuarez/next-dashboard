@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import Link from "next/link"
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { useRouter } from 'next/router';
 
 const userData = {
   name: 'Tom Cook',
@@ -12,7 +13,7 @@ const userData = {
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', current: true },
   { name: 'Productos', href: '/dashboard/products/', current: false },
-  { name: 'Ventas', href: '#', current: false },
+  { name: 'Ventas', href: 'sales', current: false },
 ];
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -25,6 +26,8 @@ function classNames(...classes: string[]) {
 }
 
 export default function Header() {
+	const router = useRouter()
+
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">
@@ -44,7 +47,7 @@ export default function Header() {
                         <Link
                           key={item.name}
                           href={item.href}
-                          className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
+                          className={classNames(item.href == router.pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
                           aria-current={item.current ? 'page' : undefined}
                         >
                           {item.name}

@@ -14,3 +14,16 @@ export type Person = {
 		updatedAt: string
 	}
 }
+
+interface UserAuth {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  token: string;
+}
+
+type Auth = {
+	user: UserAuth | null;
+	signIn: (email: string, password: string) => void;
+}

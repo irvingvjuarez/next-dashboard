@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie"
 import { useState } from "react";
 import { UserAuth } from "type"
 import endpoints from "@/services/api/index"
@@ -20,7 +21,9 @@ export const useProvideAuth = () => {
 			axiosConfig
 		)
 
-		console.log(data)
+		if(data.access_token) {
+			Cookies.set("token", data.access_token, { expires: 5 })
+		}
 	};
 
 	return { user, signIn };

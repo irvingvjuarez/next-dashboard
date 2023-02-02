@@ -1,24 +1,33 @@
 import { AuthContext } from '@/contexts/auth.context';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
-import { FormEvent, useContext, useRef } from 'react';
+import { FormEvent, useContext, useRef, useState } from 'react';
 import { Auth } from 'type';
 
 export default function LoginPage() {
 	const router = useRouter()
+	const [errors, setErrors] = useState<string[]>([])
 	const emailRef = useRef<null | HTMLInputElement>(null)
 	const passwordRef = useRef<null | HTMLInputElement>(null)
 	const { signIn } = useContext(AuthContext) as Auth
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+		if (errors.length) {
+			setErrors([])
+		}
+
 		const email = emailRef.current?.value as string
 		const password = passwordRef.current?.value as string
 
-		signIn(email, password).then(user => {
-			router.push("/dashboard")
-			console.log(user)
-		})
+		signIn(email, password)
+			.then(user => {
+				router.push("/dashboard")
+				console.log(user)
+			})
+			.catch(err => {
+				setErrors(prev => [...prev, err.message])
+			})
 	}
 
   return (
@@ -63,6 +72,14 @@ export default function LoginPage() {
                   />
                 </div>
               </div>
+
+							<div className='flex flex-col space-y-1'>
+								{errors.map(err => (
+									<span key={err} className="bg-red-400 rounded-sm px-2 py-1 font-semibold w-fit">
+										{err}
+									</span>
+								))}
+							</div>
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center">

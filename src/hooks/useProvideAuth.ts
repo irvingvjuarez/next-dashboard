@@ -32,8 +32,7 @@ export const useProvideAuth = () => {
 				setUser(data)
 			}
 		} catch(err) {
-			// TODO: Giving visual feedback to the user when an error ocurred
-			console.log(err)
+			throw new Error((err as Error).message)
 		}
 
 		return user

@@ -15,14 +15,20 @@ export const useProvideAuth = () => {
 	const [user, setUser] = useState<UserAuth | null>(null);
 
 	const signIn = async (email: string, password: string) => {
-		const { data } = await axios.post(
-			endpoints.auth.login,
-			{ email, password },
-			axiosConfig
-		)
+		try {
+			const { data } = await axios.post(
+				endpoints.auth.login,
+				{ email, password },
+				axiosConfig
+			)
 
-		if(data.access_token) {
-			Cookies.set("token", data.access_token, { expires: 5 })
+			if(data.access_token) {
+				Cookies.set("token", data.access_token, { expires: 5 })
+			}
+
+		} catch(err) {
+			// TODO: Giving visual feedback to the user when an error ocurred
+			console.log(err)
 		}
 	};
 

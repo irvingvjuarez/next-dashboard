@@ -1,11 +1,26 @@
+import axios from "axios";
 import { useState } from "react";
 import { UserAuth } from "type"
+import endpoints from "@/services/api/index"
+
+const axiosConfig = {
+	headers: {
+		accept: "*/*",
+		"Content-Type": "application/json"
+	}
+}
 
 export const useProvideAuth = () => {
 	const [user, setUser] = useState<UserAuth | null>(null);
 
 	const signIn = async (email: string, password: string) => {
-		console.log("Loggin in...")
+		const { data } = await axios.post(
+			endpoints.auth.login,
+			{ email, password },
+			axiosConfig
+		)
+
+		console.log(data)
 	};
 
 	return { user, signIn };

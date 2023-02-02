@@ -1,16 +1,19 @@
+import { AuthContext } from '@/contexts/auth.context';
 import { LockClosedIcon } from '@heroicons/react/solid';
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useContext, useRef } from 'react';
+import { Auth } from 'type';
 
 export default function LoginPage() {
 	const emailRef = useRef<null | HTMLInputElement>(null)
 	const passwordRef = useRef<null | HTMLInputElement>(null)
+	const { signIn } = useContext(AuthContext) as Auth
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		// console.log({
-		// 	email: emailRef.current?.value,
-		// 	password: passwordRef.current?.value
-		// })
+		const email = emailRef.current?.value as string
+		const password = passwordRef.current?.value as string
+
+		signIn(email, password)
 	}
 
   return (

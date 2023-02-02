@@ -49,8 +49,9 @@ export default function Home() {
             </defs>
           </svg>
         </div>
-        <div className="px-6 pt-6 lg:px-8">
-          <nav className="flex items-center justify-between" aria-label="Global">
+
+        <div className="px-6 lg:px-8">
+          {/* <nav className="flex items-center justify-between" aria-label="Global">
             <div className="flex lg:flex-1">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
@@ -79,7 +80,7 @@ export default function Home() {
                 Log in <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
-          </nav>
+          </nav> */}
           <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
             <Dialog.Panel focus="true" className="fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden">
               <div className="flex items-center justify-between">
@@ -124,7 +125,7 @@ export default function Home() {
         </div>
         <main>
           <div className="relative px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+            <div className="mx-auto max-w-2xl py-4">
               <div className="hidden sm:mb-8 sm:flex sm:justify-center">
                 <div className="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                   Announcing our next round of funding.{' '}

@@ -16,11 +16,14 @@ export type Person = {
 }
 
 interface UserAuth {
+	avatar: string;
+	creationAt: string;
+  email: string;
   id: number;
   name: string;
-  email: string;
+	password: string;
   role: string;
-  token: string;
+  updatedAt: string;
 }
 
 type Auth = {

@@ -22,8 +22,17 @@ export const useProvideAuth = () => {
 				axiosConfig
 			)
 
-			if(data.access_token) {
-				Cookies.set("token", data.access_token, { expires: 5 })
+			const token = data.access_token
+
+			if(token) {
+				Cookies.set("token", token, { expires: 5 })
+
+				axios.defaults.headers.Authorization = `Bearer ${token}`
+				const { data } = await axios.get(endpoints.auth.profile)
+
+				if(data) {
+					setUser(data)
+				}
 			}
 
 		} catch(err) {

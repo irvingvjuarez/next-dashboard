@@ -1,9 +1,11 @@
 import { AuthContext } from '@/contexts/auth.context';
 import { LockClosedIcon } from '@heroicons/react/solid';
+import { useRouter } from 'next/router';
 import { FormEvent, useContext, useRef } from 'react';
 import { Auth } from 'type';
 
 export default function LoginPage() {
+	const router = useRouter()
 	const emailRef = useRef<null | HTMLInputElement>(null)
 	const passwordRef = useRef<null | HTMLInputElement>(null)
 	const { signIn } = useContext(AuthContext) as Auth
@@ -13,7 +15,10 @@ export default function LoginPage() {
 		const email = emailRef.current?.value as string
 		const password = passwordRef.current?.value as string
 
-		signIn(email, password)
+		signIn(email, password).then(user => {
+			router.push("/dashboard")
+			console.log(user)
+		})
 	}
 
   return (

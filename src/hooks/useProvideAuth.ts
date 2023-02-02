@@ -14,7 +14,7 @@ const axiosConfig = {
 export const useProvideAuth = () => {
 	const [user, setUser] = useState<UserAuth | null>(null);
 
-	const signIn = async (email: string, password: string) => {
+	const signIn = async (email: string, password: string): Promise<UserAuth | null> => {
 		try {
 			const { data } = await axios.post(
 				endpoints.auth.login,
@@ -29,16 +29,14 @@ export const useProvideAuth = () => {
 
 				axios.defaults.headers.Authorization = `Bearer ${token}`
 				const { data } = await axios.get(endpoints.auth.profile)
-
-				if(data) {
-					setUser(data)
-				}
+				setUser(data)
 			}
-
 		} catch(err) {
 			// TODO: Giving visual feedback to the user when an error ocurred
 			console.log(err)
 		}
+
+		return user
 	};
 
 	return { user, signIn };

@@ -1,6 +1,13 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 
-export default function Pagination() {
+type PaginationProps = {
+	limit: number
+	size: number
+}
+
+const Pagination: React.FC<PaginationProps> = ({ limit, size }) => {
+	const slices = new Array(size / limit).fill(null).map((_item, index) => index + 1)
+
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
@@ -28,40 +35,18 @@ export default function Pagination() {
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </a>
             {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
-            <a
-              href="#"
-              aria-current="page"
-              className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
-            >
-              1
-            </a>
-            <a
-              href="#"
-              className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-            >
-              2
-            </a>
-            <a
-              href="#"
-              className="relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex"
-            >
-              3
-            </a>
-						<a
-              href="#"
-              className="relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex"
-            >
-              4
-            </a>
+            {slices.map(slice => (
+							<a
+								key={slice}
+								href="#"
+								className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
+							>
+								{slice}
+							</a>
+						))}
             {/* <span className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700">
               4
             </span> */}
-            <a
-              href="#"
-              className="relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex"
-            >
-              5
-            </a>
             <a
               href="#"
               className="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
@@ -75,3 +60,5 @@ export default function Pagination() {
     </div>
   )
 }
+
+export default Pagination

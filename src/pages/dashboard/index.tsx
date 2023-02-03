@@ -2,7 +2,6 @@ import Head from "next/head"
 import Loading from "../../common/Loading"
 import { useEffect, useState } from "react";
 import { Person } from "type";
-import { TrashIcon } from "@heroicons/react/outline"
 
 export default function Dashboard() {
 	const [people, setPeople] = useState<Person[]>([])
@@ -75,8 +74,8 @@ export default function Dashboard() {
 													</a>
 												</td>
 												<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-													<a href="#" className="bg-red-400 hover:text-indigo-900">
-														<TrashIcon className="text-red-500" />
+													<a href="#" className="text-red-400 hover:text-red-900">
+														Delete
 													</a>
 												</td>
 											</tr>

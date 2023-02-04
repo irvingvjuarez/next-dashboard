@@ -1,4 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
+import { useState } from 'react';
 
 type PaginationProps = {
 	limit: number;
@@ -7,7 +8,13 @@ type PaginationProps = {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ limit, size, handlePagination }) => {
+	const [current, setCurrent] = useState(1)
 	const slices = new Array(size / limit).fill(null).map((_item, index) => index + 1)
+
+	const handlePaginationClick = (value: number) => {
+		handlePagination(value)
+		setCurrent(value)
+	}
 
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
@@ -39,9 +46,9 @@ const Pagination: React.FC<PaginationProps> = ({ limit, size, handlePagination }
             {slices.map(slice => (
 							<a
 								key={slice}
-								onClick={() => handlePagination(slice)}
+								onClick={() => handlePaginationClick(slice)}
 								href="#"
-								className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
+								className={`relative inline-flex items-center border border-gray-300 px-4 py-2 text-sm font-medium text-gray-500 ${slice == current ? "bg-gray-200" : "bg-white"} focus:z-20`}
 							>
 								{slice}
 							</a>

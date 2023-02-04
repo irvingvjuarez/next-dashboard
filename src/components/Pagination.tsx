@@ -1,11 +1,12 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 
 type PaginationProps = {
-	limit: number
-	size: number
+	limit: number;
+	size: number;
+	handlePagination: (value: number) => void
 }
 
-const Pagination: React.FC<PaginationProps> = ({ limit, size }) => {
+const Pagination: React.FC<PaginationProps> = ({ limit, size, handlePagination }) => {
 	const slices = new Array(size / limit).fill(null).map((_item, index) => index + 1)
 
   return (
@@ -38,6 +39,7 @@ const Pagination: React.FC<PaginationProps> = ({ limit, size }) => {
             {slices.map(slice => (
 							<a
 								key={slice}
+								onClick={() => handlePagination(slice)}
 								href="#"
 								className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
 							>

@@ -11,6 +11,11 @@ export default function Dashboard() {
 	const [paginationLimit, setPaginationLimit] = useState(5)
 	const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
 
+	const handlePagination = (value: number) => {
+		const newProducts = products.filter((_, index) => index >= value - 1 && index <= value + 3)
+		setDisplayedProducts(newProducts)
+	}
+
 	useEffect(() => {
 		fetch(`https://api.escuelajs.co/api/v1/products?limit=${PRODUCTS_LIMIT}&offset=0`)
 			.then(res => res.json())
@@ -95,6 +100,7 @@ export default function Dashboard() {
 									<Pagination
 										limit={paginationLimit}
 										size={products.length}
+										handlePagination={handlePagination}
 									/>
 								</>
 							) : (

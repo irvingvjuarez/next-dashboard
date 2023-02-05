@@ -14,12 +14,6 @@ export default function Dashboard() {
 	const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
 
 	const categoryNames = products?.map(product => product.category.name)
-	// const uniqueCategories = Array.from(new Set(categoryNames))
-
-	// const categoriesInstances = uniqueCategories.map(category => ({
-	// 	category: categoryNames.filter(name => name == category).length
-	// }))
-
 	const countOccurrences = (arr: string[]) => arr.reduce((prev, curr) => ((prev[curr] = ++prev[curr] || 1), prev), {})
 
 	const data = {
@@ -53,16 +47,16 @@ export default function Dashboard() {
 				<title>Dashboard</title>
 			</Head>
 
-			<div className="mb-8 mt-2">
-				<Chart chartData={data} />
-			</div>
+			{products.length > 0 ? (
+				<>
+					<div className="mb-8 mt-2">
+						<Chart chartData={data} />
+					</div>
 
-			<div className="flex flex-col">
-				<div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-					<div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-						<div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-							{products.length > 0 ? (
-								<>
+					<div className="flex flex-col">
+						<div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+							<div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+								<div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
 									<table className="min-w-full divide-y divide-gray-200 mb-3">
 										<thead className="bg-gray-50">
 											<tr>
@@ -126,14 +120,14 @@ export default function Dashboard() {
 										size={products.length}
 										handlePagination={handlePagination}
 									/>
-								</>
-							) : (
-								<Loading />
-							)}
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				</>
+			) : (
+				<Loading />
+			)}
 		</>
 	);
 }

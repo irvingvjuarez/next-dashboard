@@ -24,7 +24,7 @@ export const Chart: React.FC<ChartProps> = ({ chartData }) => {
 				},
 				legend: {
 					display: true,
-					position: "right"
+					position: "top"
 				}
 			}
 		 }}

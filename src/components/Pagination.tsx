@@ -44,14 +44,13 @@ const Pagination: React.FC<PaginationProps> = ({ limit, size, handlePagination }
             </a>
             {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
             {slices.map(slice => (
-							<a
+							<span
 								key={slice}
 								onClick={() => handlePaginationClick(slice)}
-								href="#"
-								className={`relative inline-flex items-center border border-gray-300 px-4 py-2 text-sm font-medium text-gray-500 ${slice == current ? "bg-gray-200" : "bg-white"} focus:z-20`}
+								className={`cursor-pointer relative inline-flex items-center border border-gray-300 px-4 py-2 text-sm font-medium text-gray-500 ${slice == current ? "bg-gray-200" : "bg-white"} focus:z-20`}
 							>
 								{slice}
-							</a>
+							</span>
 						))}
             {/* <span className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700">
               4

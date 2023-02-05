@@ -3,13 +3,33 @@ import Loading from "../../common/Loading"
 import { useEffect, useState } from "react";
 import { Product } from "type";
 import Pagination from "@/components/Pagination";
+import { Chart } from "@/common/Chart";
 
 const PRODUCTS_LIMIT = 25;
+
 
 export default function Dashboard() {
 	const [products, setProducts] = useState<Product[]>([])
 	const [paginationLimit, setPaginationLimit] = useState(5)
 	const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
+
+	const categoryNames = products?.map(product => product.category.name)
+	// const uniqueCategories = Array.from(new Set(categoryNames))
+
+	// const categoriesInstances = uniqueCategories.map(category => ({
+	// 	category: categoryNames.filter(name => name == category).length
+	// }))
+
+	const countOccurrences = (arr: string[]) => arr.reduce((prev, curr) => ((prev[curr] = ++prev[curr] || 1), prev), {})
+
+	const data = {
+		datasets: [{
+			label: "Categories",
+			data: countOccurrences(categoryNames),
+			borderWidth: 2,
+			backgroundColor: ["#7286D3", "#8EA7E9", "#E5E0FF", "#FFF2F2", "#AAE3E2"]
+		}]
+	}
 
 	const handlePagination = (value: number) => {
 		const newProducts = products.filter((_, index) => index >= value - 1 && index <= value + 3)
@@ -32,6 +52,10 @@ export default function Dashboard() {
 			<Head>
 				<title>Dashboard</title>
 			</Head>
+
+			<div className="mb-8 mt-2">
+				<Chart chartData={data} />
+			</div>
 
 			<div className="flex flex-col">
 				<div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

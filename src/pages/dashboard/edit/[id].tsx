@@ -28,12 +28,7 @@ const EditProduct = () => {
 			</Head>
 
 			{product ? (
-				<FormProduct
-					title={product.title}
-					price={product.price}
-					categoryId={product.id}
-					description={product.description}
-				/>
+				<FormProduct product={product} />
 			) :
 				<Loading />
 			}

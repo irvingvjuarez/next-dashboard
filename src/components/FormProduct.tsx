@@ -1,18 +1,14 @@
 import { Dispatch, FormEvent, SetStateAction, useRef } from "react"
 import { addProduct } from "@/pages/api/products"
-import { Alert, PostProductData } from "type"
+import { Alert, PostProductData, Product } from "type"
 
 type FormProductProps = {
 	setAlert?: Dispatch<SetStateAction<Alert>>;
 	setOpen?: Dispatch<SetStateAction<boolean>>;
-	title?: string;
-	price?: number;
-	categoryId?: number;
-	description?: string;
-	images?: string[]
+	product?: Product;
 }
 
-export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen, title, price, categoryId, description, images }) => {
+export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen, product }) => {
 	const formRef = useRef<HTMLFormElement | null>(null)
 	const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
 		evt.preventDefault()
@@ -64,7 +60,7 @@ export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen, tit
 								Title
 							</label>
 							<input
-								defaultValue={title}
+								defaultValue={product?.title}
 								type="text"
 								name="title"
 								id="title"
@@ -79,7 +75,7 @@ export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen, tit
 								Price
 							</label>
 							<input
-								defaultValue={price}
+								defaultValue={product?.price}
 								type="number"
 								name="price"
 								id="price"
@@ -94,7 +90,7 @@ export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen, tit
 								Category
 							</label>
 							<select
-								defaultValue={categoryId}
+								defaultValue={product?.categoryId}
 								id="category"
 								name="category"
 								autoComplete="category-name"
@@ -116,7 +112,7 @@ export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen, tit
 								Description
 							</label>
 							<textarea
-								defaultValue={description}
+								defaultValue={product?.description}
 								name="description"
 								id="description"
 								autoComplete="description"

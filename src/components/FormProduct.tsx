@@ -15,7 +15,7 @@ export const FormProduct = () => {
 								type="text"
 								name="title"
 								id="title"
-								className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+								className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-400 rounded-md bg-white border-2 text-gray-700"
 							/>
 						</div>
 						<div className="col-span-6 sm:col-span-3">
@@ -29,7 +29,7 @@ export const FormProduct = () => {
 								type="number"
 								name="price"
 								id="price"
-								className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+								className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-400 rounded-md bg-white border-2 text-gray-700"
 							/>
 						</div>
 						<div className="col-span-6">
@@ -43,7 +43,7 @@ export const FormProduct = () => {
 								id="category"
 								name="category"
 								autoComplete="category-name"
-								className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+								className="text-gray-700 mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 							>
 								<option value="1">Clothes</option>
 								<option value="2">Electronics</option>
@@ -64,8 +64,8 @@ export const FormProduct = () => {
 								name="description"
 								id="description"
 								autoComplete="description"
-								rows="3"
-								className="form-textarea mt-1 block w-full mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+								rows={3}
+								className="form-textarea mt-1 block w-full mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-white border-2 text-gray-700"
 							/>
 						</div>
 						<div className="col-span-6">

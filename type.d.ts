@@ -35,3 +35,10 @@ type Auth = {
 	user: UserAuth | null;
 	signIn: (email: string, password: string) => Promise<UserAuth | null>;
 }
+
+export type Alert = {
+	active: boolean,
+	message: string,
+	type: string,
+	autoClose: boolean
+}

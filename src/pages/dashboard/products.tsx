@@ -37,6 +37,9 @@ const Products = () => {
 				setProducts(data)
 				setDisplayedProducts(displayedProducts)
 			})
+			.catch(err => {
+				console.log(err)
+			})
 	}, [])
 
 	if (products.length < 1) {

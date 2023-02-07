@@ -3,6 +3,7 @@ import Cookies from "js-cookie"
 import { useState } from "react";
 import { UserAuth } from "type"
 import endpoints from "@/services/api/index"
+import { useRouter } from "next/router";
 
 const axiosConfig = {
 	headers: {
@@ -13,6 +14,7 @@ const axiosConfig = {
 
 export const useProvideAuth = () => {
 	const [user, setUser] = useState<UserAuth | null>(null);
+	const router = useRouter()
 
 	const signIn = async (email: string, password: string): Promise<UserAuth | null> => {
 		try {
@@ -38,5 +40,13 @@ export const useProvideAuth = () => {
 		return user
 	};
 
-	return { user, signIn };
+	const logout = () => {
+		Cookies.remove("token")
+		setUser(null)
+		delete axios.defaults.headers.Authorization
+
+		router.push("/")
+	}
+
+	return { user, signIn, logout };
 }

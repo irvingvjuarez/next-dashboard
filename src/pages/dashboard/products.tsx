@@ -5,12 +5,15 @@ import { PAGINATION_LIMIT, PRODUCTS_LIMIT } from "@/globals"
 import { useEffect, useState } from "react"
 import { Category, Product } from "type"
 import { Fragment } from 'react'
-import { PlusIcon } from '@heroicons/react/solid'
+import { PlusIcon, XCircleIcon } from '@heroicons/react/solid'
 import { Menu, Transition } from '@headlessui/react'
 import Modal from "@/common/Modal"
 import { FormProduct } from "@/components/FormProduct"
 import { useAlert } from "@/hooks/useAlert"
 import { Alert } from "@/common/Alert"
+import endPoints from "@/services/api"
+import axios from "axios"
+import { deleteProduct } from "../api/products"
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ')
@@ -26,6 +29,28 @@ const Products = () => {
 	const handlePagination = (value: number) => {
 		const newProducts = products.filter((_, index) => index >= (value - 1) && index <= value + (PAGINATION_LIMIT - 2))
 		setDisplayedProducts(newProducts)
+	}
+
+	const deleteItem = (id: string) => {
+		deleteProduct(id)
+			.then(data => {
+				setAlert(prev => ({
+					...prev,
+					active: true,
+					message: "Product Deleted successfully",
+					autoClose: true,
+					type: "error"
+				}))
+			})
+			.catch(err => {
+				setAlert(prev => ({
+					...prev,
+					active: true,
+					message: err.message,
+					autoClose: true,
+					type: "error"
+				}))
+			})
 	}
 
 	useEffect(() => {
@@ -131,9 +156,11 @@ const Products = () => {
 												</a>
 											</td>
 											<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-												<a href="#" className="text-red-400 hover:text-red-900">
-													Delete
-												</a>
+												<XCircleIcon
+													aria-hidden="true"
+													className="flex-shrink-0 h-6 w-6 text-red-400 cursor-pointer"
+													onClick={() => deleteItem(String(product.id))}
+												/>
 											</td>
 										</tr>
 									))}

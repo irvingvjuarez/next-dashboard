@@ -1,16 +1,12 @@
 import { useState } from "react"
-
-const defaultOptions = {
-	active: false,
-	message: "",
-	type: "",
-	autoClose: true
-}
+import { Alert } from "type"
 
 export const useAlert = <T>(options?: T) => {
-	const [alert, setAlert] = useState({
-		...defaultOptions,
-		...options
+	const [alert, setAlert] = useState<Alert>({
+		active: false,
+		message: "",
+		type: "error",
+		autoClose: true
 	})
 
 	const toggleAlert = () => {

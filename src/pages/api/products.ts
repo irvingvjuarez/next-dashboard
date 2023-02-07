@@ -13,3 +13,8 @@ export const addProduct = async (body: PostProductData) => {
 	const res = await axios.post(endPoints.products.addProducts, body, config)
 	return res.data
 }
+
+export const deleteProduct = async (id: string) => {
+	const res = await axios.delete(endPoints.products.deleteProducts(id))
+	return res.data
+}

@@ -39,6 +39,6 @@ type Auth = {
 export type Alert = {
 	active: boolean,
 	message: string,
-	type: string,
+	type: "error" | "success" | "warning",
 	autoClose: boolean
 }

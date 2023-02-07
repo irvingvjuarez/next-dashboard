@@ -23,3 +23,15 @@ export const deleteProduct = async (id: string) => {
 	const res = await axios.delete(endPoints.products.deleteProducts(id))
 	return res.data
 }
+
+export const updateProduct = async (id: string, body: PostProductData) => {
+	const config = {
+		headers: {
+			accept: "*/*",
+			"Content-Type": "application/json"
+		}
+	}
+
+	const res = await axios.put(endPoints.products.updateProducts(id), body, config)
+	return res.data
+}

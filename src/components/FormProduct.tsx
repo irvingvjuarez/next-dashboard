@@ -1,6 +1,7 @@
 import { Dispatch, FormEvent, SetStateAction, useRef } from "react"
-import { addProduct } from "@/pages/api/products"
+import { addProduct, updateProduct } from "@/pages/api/products"
 import { Alert, PostProductData, Product } from "type"
+import { useRouter } from "next/router";
 
 type FormProductProps = {
 	setAlert?: Dispatch<SetStateAction<Alert>>;
@@ -10,6 +11,9 @@ type FormProductProps = {
 
 export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen, product }) => {
 	const formRef = useRef<HTMLFormElement | null>(null)
+	const router = useRouter()
+	const productId = router.query.id as string
+
 	const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
 		evt.preventDefault()
 		const formData = new FormData(formRef.current as HTMLFormElement)
@@ -22,29 +26,60 @@ export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen, pro
 			images: [(formData.get("images") as File).name] as string[]
 		}
 
-		addProduct(data as PostProductData)
-			.then(() => {
-				setAlert?.(prev => ({
-					...prev,
-					active: true,
-					message: "Product added correctly",
-					type: "success",
-					autoClose: false
-				}))
-			})
-			.catch(err => {
-				// Handling error - todo
-				setAlert?.(prev => ({
-					...prev,
-					active: true,
-					message: err.message,
-					type: "error",
-					autoClose: false
-				}))
-			})
-			.finally(() => {
-				setOpen?.(false)
-			})
+		if (router.pathname.match(/edit/)) {
+			// Updating
+			const newData = {...data, images: product?.images || []}
+
+			updateProduct(productId, newData)
+				.then(_data => {
+					setAlert?.(prev => ({
+						...prev,
+						active: true,
+						message: "Product updated correctly",
+						type: "success",
+						autoClose: false
+					}))
+				})
+				.catch(err => {
+
+					setAlert?.(prev => ({
+						...prev,
+						active: true,
+						message: err.message,
+						type: "error",
+						autoClose: false
+					}))
+				})
+				.finally(() => {
+					// Go back to dashboard
+					router.push("/dashboard/products")
+				})
+		} else {
+			// Creating
+			addProduct(data as PostProductData)
+				.then(() => {
+					setAlert?.(prev => ({
+						...prev,
+						active: true,
+						message: "Product added correctly",
+						type: "success",
+						autoClose: false
+					}))
+				})
+				.catch(err => {
+					// Handling error - todo
+					setAlert?.(prev => ({
+						...prev,
+						active: true,
+						message: err.message,
+						type: "error",
+						autoClose: false
+					}))
+				})
+				.finally(() => {
+					setOpen?.(false)
+				})
+		}
 	}
 
 	return (

@@ -1,4 +1,6 @@
 import { FormEvent, useRef } from "react"
+import { addProduct } from "@/pages/api/products"
+import { PostProductData } from "type"
 
 export const FormProduct = () => {
 	const formRef = useRef<HTMLFormElement | null>(null)
@@ -7,14 +9,21 @@ export const FormProduct = () => {
 		const formData = new FormData(formRef.current as HTMLFormElement)
 
 		const data = {
-			title: formData.get("title"),
-			price: formData.get("price"),
-			description: formData.get("description"),
-			category: formData.get("category"),
-			images: [(formData.get("images") as File).name]
+			title: formData.get("title") as string,
+			price: Number(formData.get("price")) as number,
+			description: formData.get("description") as string,
+			categoryId: formData.get("category") as string,
+			images: [(formData.get("images") as File).name] as string[]
 		}
 
-		console.log({ data })
+		addProduct(data as PostProductData)
+			.then(res => {
+				console.log({ res })
+			})
+			.catch(err => {
+				// Handling error - todo
+				console.log(err)
+			})
 	}
 
 	return (

@@ -1,4 +1,12 @@
-export type Product = {
+export type Category = {
+	id: number,
+	name: string,
+	image: string,
+	creationAt: string,
+	updatedAt: string
+}
+
+export interface Product {
 	id: number,
 	title: string,
 	price: number,
@@ -6,14 +14,11 @@ export type Product = {
 	images: string[],
 	creationAt: string,
 	updatedAt: string,
-	category: {
-		id: number,
-		name: string,
-		image: string,
-		creationAt: string,
-		updatedAt: string
-	}
+	category: Category
+	categoryId?: string
 }
+
+export type PostProductData = Pick<Product, "title" | "price" | "description" | "images" | "categoryId">
 
 interface UserAuth {
 	avatar: string;

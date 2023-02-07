@@ -3,7 +3,7 @@ import Pagination from "@/components/Pagination"
 import Head from "next/head"
 import { PAGINATION_LIMIT, PRODUCTS_LIMIT } from "@/globals"
 import { useEffect, useState } from "react"
-import { Product } from "type"
+import { Category, Product } from "type"
 import { Fragment } from 'react'
 import { PlusIcon } from '@heroicons/react/solid'
 import { Menu, Transition } from '@headlessui/react'

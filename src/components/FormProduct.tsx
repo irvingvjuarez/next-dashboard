@@ -1,6 +1,24 @@
+import { FormEvent, useRef } from "react"
+
 export const FormProduct = () => {
+	const formRef = useRef<HTMLFormElement | null>(null)
+	const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+		evt.preventDefault()
+		const formData = new FormData(formRef.current as HTMLFormElement)
+
+		const data = {
+			title: formData.get("title"),
+			price: formData.get("price"),
+			description: formData.get("description"),
+			category: formData.get("category"),
+			images: [(formData.get("images") as File).name]
+		}
+
+		console.log({ data })
+	}
+
 	return (
-		<form>
+		<form ref={formRef} onSubmit={handleSubmit}>
 			<div className="overflow-hidden">
 				<div className="px-4 py-5 bg-white sm:p-6">
 					<div className="grid grid-cols-6 gap-6">
@@ -65,7 +83,7 @@ export const FormProduct = () => {
 								id="description"
 								autoComplete="description"
 								rows={3}
-								className="form-textarea mt-1 block w-full mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-white border-2 text-gray-700"
+								className="form-textarea mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-white border-2 text-gray-700"
 							/>
 						</div>
 						<div className="col-span-6">

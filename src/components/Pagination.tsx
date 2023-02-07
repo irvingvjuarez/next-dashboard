@@ -9,7 +9,7 @@ type PaginationProps = {
 
 const Pagination: React.FC<PaginationProps> = ({ limit, size, handlePagination }) => {
 	const [current, setCurrent] = useState(1)
-	const slices = new Array(size / limit).fill(null).map((_item, index) => index + 1)
+	const slices = new Array(Math.round(size / limit)).fill(null).map((_item, index) => index + 1)
 
 	const handlePaginationClick = (value: number) => {
 		handlePagination(value)

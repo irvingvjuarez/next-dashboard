@@ -7,7 +7,7 @@ type AlertProps = {
 }
 
 export const Alert: React.FC<AlertProps> = ({ alert, handleClose }) => {
-	if (alert && alert.autoClose) {
+	if (alert && !alert.autoClose) {
 		setTimeout(handleClose, 3000)
 	}
 

@@ -1,8 +1,13 @@
-import { FormEvent, useRef } from "react"
+import { Dispatch, FormEvent, SetStateAction, useRef } from "react"
 import { addProduct } from "@/pages/api/products"
-import { PostProductData } from "type"
+import { Alert, PostProductData } from "type"
 
-export const FormProduct = () => {
+type FormProductProps = {
+	setAlert: Dispatch<SetStateAction<Alert>>;
+	setOpen: Dispatch<SetStateAction<boolean>>
+}
+
+export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen }) => {
 	const formRef = useRef<HTMLFormElement | null>(null)
 	const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
 		evt.preventDefault()
@@ -17,12 +22,27 @@ export const FormProduct = () => {
 		}
 
 		addProduct(data as PostProductData)
-			.then(res => {
-				console.log({ res })
+			.then(() => {
+				setAlert(prev => ({
+					...prev,
+					active: true,
+					message: "Product added correctly",
+					type: "success",
+					autoClose: false
+				}))
 			})
 			.catch(err => {
 				// Handling error - todo
-				console.log(err)
+				setAlert(prev => ({
+					...prev,
+					active: true,
+					message: err.message,
+					type: "error",
+					autoClose: false
+				}))
+			})
+			.finally(() => {
+				setOpen(false)
 			})
 	}
 

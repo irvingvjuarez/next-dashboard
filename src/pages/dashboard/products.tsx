@@ -9,6 +9,8 @@ import { PlusIcon } from '@heroicons/react/solid'
 import { Menu, Transition } from '@headlessui/react'
 import Modal from "@/common/Modal"
 import { FormProduct } from "@/components/FormProduct"
+import { useAlert } from "@/hooks/useAlert"
+import { Alert } from "@/common/Alert"
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ')
@@ -18,11 +20,9 @@ const Products = () => {
 	const [products, setProducts] = useState<Product[]>([])
 	const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
 	const [open, setOpen] = useState(false)
+	const { alert, toggleAlert, setAlert } = useAlert()
 
-	const triggerModal = () => {
-		setOpen(prev => !prev)
-	}
-
+	const triggerModal = () => setOpen(prev => !prev)
 	const handlePagination = (value: number) => {
 		const newProducts = products.filter((_, index) => index >= (value - 1) && index <= value + (PAGINATION_LIMIT - 2))
 		setDisplayedProducts(newProducts)
@@ -40,7 +40,7 @@ const Products = () => {
 			.catch(err => {
 				console.log(err)
 			})
-	}, [])
+	}, [alert])
 
 	if (products.length < 1) {
 		return (
@@ -53,6 +53,8 @@ const Products = () => {
 			<Head>
 				<title>Dashboard Products</title>
 			</Head>
+
+			<Alert alert={alert} handleClose={toggleAlert} />
 
 			<div className="lg:flex lg:items-center lg:justify-between mb-3">
 				<div className="min-w-0 flex-1">
@@ -149,7 +151,7 @@ const Products = () => {
 			</div>
 
 			<Modal open={open} setOpen={setOpen}>
-				<FormProduct />
+				<FormProduct setAlert={setAlert} setOpen={setOpen} />
 			</Modal>
 		</>
 	)

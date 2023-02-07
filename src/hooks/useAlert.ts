@@ -16,7 +16,8 @@ export const useAlert = <T>(options?: T) => {
 	const toggleAlert = () => {
 		setAlert(prev => ({
 			...prev,
-			active: !prev
+			active: !prev,
+			autoClose: false
 		}))
 	}
 

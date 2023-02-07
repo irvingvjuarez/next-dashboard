@@ -7,6 +7,7 @@ import { Product } from "type"
 import { Fragment } from 'react'
 import { PlusIcon } from '@heroicons/react/solid'
 import { Menu, Transition } from '@headlessui/react'
+import Modal from "@/common/Modal"
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -15,6 +16,11 @@ function classNames(...classes: string[]) {
 const Products = () => {
 	const [products, setProducts] = useState<Product[]>([])
 	const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
+	const [open, setOpen] = useState(false)
+
+	const triggerModal = () => {
+		setOpen(prev => !prev)
+	}
 
 	const handlePagination = (value: number) => {
 		const newProducts = products.filter((_, index) => index >= (value - 1) && index <= value + (PAGINATION_LIMIT - 2))
@@ -49,48 +55,12 @@ const Products = () => {
         <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
           Product List
         </h2>
-        {/* <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-            <BriefcaseIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            Full-time
-          </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-            <MapIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            Remote
-          </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-            <CurrencyDollarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            $120k &ndash; $140k
-          </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-            <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            Closing on January 9, 2020
-          </div>
-        </div> */}
       </div>
       <div className="mt-5 flex lg:mt-0 lg:ml-4">
-        {/* <span className="hidden sm:block">
-          <button
-            type="button"
-            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            <PencilIcon className="-ml-1 mr-2 h-5 w-5 text-gray-500" aria-hidden="true" />
-            Edit
-          </button>
-        </span>
-
-        <span className="ml-3 hidden sm:block">
-          <button
-            type="button"
-            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            <LinkIcon className="-ml-1 mr-2 h-5 w-5 text-gray-500" aria-hidden="true" />
-            View
-          </button>
-        </span> */}
 
         <span className="sm:ml-3">
           <button
+						onClick={triggerModal}
             type="button"
             className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
@@ -213,6 +183,10 @@ const Products = () => {
 					</div>
 				</div>
 			</div>
+
+			<Modal open={open} setOpen={setOpen}>
+				<h2>Hi there</h2>
+			</Modal>
 		</>
 	)
 }

@@ -1,10 +1,10 @@
-import { Fragment, useRef } from 'react';
+import { Dispatch, Fragment, SetStateAction, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XCircleIcon } from '@heroicons/react/solid';
 
 type ModalProps = {
 	open: boolean;
-	setOpen: () => void;
+	setOpen: Dispatch<SetStateAction<boolean>>;
 	children: JSX.Element;
 }
 

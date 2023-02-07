@@ -3,11 +3,16 @@ import { addProduct } from "@/pages/api/products"
 import { Alert, PostProductData } from "type"
 
 type FormProductProps = {
-	setAlert: Dispatch<SetStateAction<Alert>>;
-	setOpen: Dispatch<SetStateAction<boolean>>
+	setAlert?: Dispatch<SetStateAction<Alert>>;
+	setOpen?: Dispatch<SetStateAction<boolean>>;
+	title?: string;
+	price?: number;
+	categoryId?: number;
+	description?: string;
+	images?: string[]
 }
 
-export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen }) => {
+export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen, title, price, categoryId, description, images }) => {
 	const formRef = useRef<HTMLFormElement | null>(null)
 	const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
 		evt.preventDefault()
@@ -23,7 +28,7 @@ export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen }) =
 
 		addProduct(data as PostProductData)
 			.then(() => {
-				setAlert(prev => ({
+				setAlert?.(prev => ({
 					...prev,
 					active: true,
 					message: "Product added correctly",
@@ -33,7 +38,7 @@ export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen }) =
 			})
 			.catch(err => {
 				// Handling error - todo
-				setAlert(prev => ({
+				setAlert?.(prev => ({
 					...prev,
 					active: true,
 					message: err.message,
@@ -42,7 +47,7 @@ export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen }) =
 				}))
 			})
 			.finally(() => {
-				setOpen(false)
+				setOpen?.(false)
 			})
 	}
 
@@ -59,6 +64,7 @@ export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen }) =
 								Title
 							</label>
 							<input
+								defaultValue={title}
 								type="text"
 								name="title"
 								id="title"
@@ -73,6 +79,7 @@ export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen }) =
 								Price
 							</label>
 							<input
+								defaultValue={price}
 								type="number"
 								name="price"
 								id="price"
@@ -87,6 +94,7 @@ export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen }) =
 								Category
 							</label>
 							<select
+								defaultValue={categoryId}
 								id="category"
 								name="category"
 								autoComplete="category-name"
@@ -108,6 +116,7 @@ export const FormProduct: React.FC<FormProductProps> = ({ setAlert, setOpen }) =
 								Description
 							</label>
 							<textarea
+								defaultValue={description}
 								name="description"
 								id="description"
 								autoComplete="description"

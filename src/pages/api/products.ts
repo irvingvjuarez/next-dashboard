@@ -2,6 +2,11 @@ import axios from "axios";
 import endPoints from "@/services/api";
 import { PostProductData } from "type";
 
+export const getProduct = async (id: string) => {
+	const res = await axios.get(endPoints.products.getProduct(id))
+	return res.data
+}
+
 export const addProduct = async (body: PostProductData) => {
 	const config = {
 		headers: {
